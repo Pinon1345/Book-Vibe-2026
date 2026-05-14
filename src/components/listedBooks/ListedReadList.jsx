@@ -11,6 +11,8 @@ const ListedReadList = ({ shortingType }) => {
 
     const [filteredReadList, setFilteredReadList] = useState(readList);
 
+    console.log(filteredReadList, "filteredReadList")
+
     useEffect(() => {
         if (shortingType) {
             if (shortingType === "Pages") {
