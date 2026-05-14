@@ -7,11 +7,19 @@ import { RouterProvider } from 'react-router/dom'
 // import HomePage from './pages/homePage/homePage'
 // import Books from './pages/Books/Books'
 import { router } from './Routes/Routes'
+import BookProvider from './context/BookContext'
+import { ToastContainer } from 'react-toastify'
+// import BookProvider from './Context/BookContext'
+// import BookProvider from './Context/BookProvider'
+// import BookProvider, { BookContext } from './Context/BookContext'
 // import App from './App.jsx'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <BookProvider>
+      <RouterProvider router={router}></RouterProvider>
+      <ToastContainer></ToastContainer>
+    </BookProvider>
   </StrictMode>,
 )

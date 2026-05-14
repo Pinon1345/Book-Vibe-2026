@@ -1,8 +1,12 @@
 // import React from 'react';
 
 // import { use } from "react";
+// import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useLoaderData } from "react-router";
 import { useParams } from "react-router";
+import { BookContext } from "../../context/BookContext";
+// import { BookContext } from "../../Context/BookContext";
 
 // const bookPromise = fetch("/booksData.json")
 // .then(response => response.json())
@@ -13,12 +17,19 @@ const BookDetails = () => {
     console.log("bookId", typeof bookParamsId);
 
     const books = useLoaderData()
-    console.log("Books", books);
+    // console.log("Books", books);
 
     const expectedBook = books.find((book) => book.bookId === Number(bookParamsId))
-    console.log(expectedBook);
+    // console.log(expectedBook);
+
 
     const { bookId, image, bookName, author, category, review, tags, totalPages, publisher, yearOfPublishing, rating } = expectedBook;
+
+
+    const { handleMarkAsRead, storedBook, handleWishList } = useContext(BookContext)
+    console.log(handleMarkAsRead, storedBook, "Book Context");
+
+
 
     // const books = use(bookPromise);
     // console.log("BOOKS", books);
@@ -29,7 +40,7 @@ const BookDetails = () => {
                 <div>
                     <figure>
                         <img
-                            className="object-fill w-120 h-120 rounded-lg"
+                            className="object-fill w-120 h-120 border-30 border-gray-100 rounded-lg"
                             src={image}
                             alt={bookName} />
                     </figure>
@@ -73,11 +84,16 @@ const BookDetails = () => {
                     </div>
 
                     <div className="card-actions justify-start space-y-4 gap-4">
-                        <button className="btn btn-outline hover:bg-green-100 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-green-500 text-green-600 px-6 py-3">Read</button>
+                        <button
+                            onClick={() => handleMarkAsRead(expectedBook)}
+                            className="btn btn-outline hover:bg-green-100 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-green-500 text-green-600 px-6 py-3">
+                            Mark as Read
+                        </button>
 
                         <button
+                            onClick={() => handleWishList(expectedBook)}
                             className="btn bg-[#59C6D2] hover:bg-[#46b3bf] text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                            Wishlist
+                            Add to Wishlist
                         </button>
 
                     </div>
